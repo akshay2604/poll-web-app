@@ -3,6 +3,18 @@ import logo from './logo.svg';
 import './App.css';
 import { BarChart,Bar, CartesianGrid, Tooltip, XAxis, YAxis, Legend} from 'recharts';
 import { Carousel, ListGroup, ListGroupItem } from 'react-bootstrap';
+var firebase = require("firebase/app");
+
+  var config = {
+    apiKey: "AIzaSyAG7CxWol6qxwumpXgacaS3IHiKJLHz4kM",
+    authDomain: "surveyapp-7dbb7.firebaseapp.com",
+    databaseURL: "https://surveyapp-7dbb7.firebaseio.com",
+    projectId: "surveyapp-7dbb7",
+    storageBucket: "surveyapp-7dbb7.appspot.com",
+    messagingSenderId: "245740130511"
+  };
+  firebase.initializeApp(config);
+  console.log(firebase);
 // import Question from './questions';
 class App extends Component {
   constructor(props) {
