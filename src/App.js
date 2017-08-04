@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import { BarChart,Bar, CartesianGrid, Tooltip, XAxis, YAxis, Legend} from 'recharts';
-import { Carousel } from 'react-bootstrap';
+import { Carousel, ListGroup, ListGroupItem } from 'react-bootstrap';
 // import Question from './questions';
 class App extends Component {
   constructor(props) {
@@ -53,11 +53,7 @@ class App extends Component {
         }
       },
       isGraphVisible: false,
-      activeVotes : [
-        {name: 'Page A',votes: 2400},
-        {name: 'Page B',votes: 2210},
-        {name: 'Page C',votes: 2290},
-      ],
+      activeVotes : [],
       index: 0,
       direction: null
     }
@@ -91,21 +87,21 @@ class App extends Component {
     const { questions } = this.state
     return (
       <Container>
-        <Header>React Native Bangalore Meetup</Header>
-        <Carousel activeIndex={this.state.index} direction={this.state.direction} onSelect={this.handleSelect.bind(this)}>
+        <h2>React Native Bangalore Meetup</h2>
+        <Carousel style={{border: '1px solid blue', width: '80%'}} activeIndex={this.state.index} direction={this.state.direction} onSelect={this.handleSelect.bind(this)}>
           {
             Object.keys(questions).map((question, index) => (
               <Carousel.Item>
                 <Question>
-                  <QuestionText>{question}</QuestionText>
-                  {
-                    Object.keys(questions[question]).map((choice, index) => 
-                      <Choice>
-                        <span>{choice}</span>
-                        <span>{questions[question][choice].name}</span>
-                      </Choice>
-                    )
-                  }
+                  <QuestionText>Q{index+1} {question}</QuestionText>
+                  <br/>
+                    <ListGroup style={{border: '1px solid red'}}>
+                      {
+                        Object.keys(questions[question]).map((choice, index) => 
+                            <ListGroupItem style={{border: '1px solid green'}}>{choice} {questions[question][choice].name}</ListGroupItem>
+                        )
+                      }
+                  </ListGroup>
                 </Question>
                     <Graph active={(val) => this.handleGraphClick(val, question)}>
                        {this.state.isGraphVisible && <ShowGraph data={this.state.activeVotes}/>}
@@ -134,27 +130,18 @@ const Header = (props) => {
 
 const Question = (props) => {
   return(
-    <div>{props.children}</div>
+    <div className="Question">{props.children}</div>
   );
 }
 const QuestionText = (props) => {
     return(
-      <div>{props.children}</div>
+      <div className="QuestionText">{props.children}</div>
     );
 }
 const Choice = (props) => {
     return(
       <div>{props.children}</div>
     )
-}
-
-const Counter = (props) => {
-  return(
-    <div>
-      <button onClick={() => props.increment()}>+</button>
-      <span>{props.children}</span>
-    </div>
-  )
 }
 const Graph = (props) => {
   return(
@@ -181,51 +168,5 @@ const ShowGraph = (props) => {
     </div>
   )
 }
-class ControlledCarousel extends Component {
-  constructor(props) {
-    super(props);
-    this.state =  {
-      index: 0,
-      direction: null
-    };
-  }
-
-  handleSelect(selectedIndex, e) {
-    alert('selected=' + selectedIndex + ', direction=' + e.direction);
-    this.setState({
-      index: selectedIndex,
-      direction: e.direction
-    });
-  }
-
-  render() {
-    return (
-      <Carousel activeIndex={this.state.index} direction={this.state.direction} onSelect={(selectedIndex, e) => this.handleSelect(selectedIndex, e)}>
-        <Carousel.Item>
-
-          <div>here the question will go</div>
-          <Carousel.Caption>
-            <h3>First slide label</h3>
-            <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-          </Carousel.Caption>
-        </Carousel.Item>
-        <Carousel.Item>
-          <div>here the question will go</div>
-          <Carousel.Caption>
-            <h3>Second slide label</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-          </Carousel.Caption>
-        </Carousel.Item>
-        <Carousel.Item>
-          <div>here the question will go</div>
-          <Carousel.Caption>
-            <h3>Third slide label</h3>
-            <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
-          </Carousel.Caption>
-        </Carousel.Item>
-      </Carousel>
-    );
-  }
-};
 
 export default App;
