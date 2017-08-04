@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import { BarChart,Bar, CartesianGrid, Tooltip, XAxis, YAxis, Legend} from 'recharts';
-import { Carousel, ListGroup, ListGroupItem } from 'react-bootstrap';
+import { Carousel, ListGroup, ListGroupItem,  Button } from 'react-bootstrap';
 // var firebase = require("firebase/app");
 import * as firebase from "firebase";
 
@@ -72,12 +72,11 @@ class App extends Component {
             Object.keys(questions).map((question, index) => (
               <Carousel.Item>
                 <Question>
-                  <QuestionText>Q{index+1} {question}</QuestionText>
-                  <br/>
-                    <ListGroup style={{border: '1px solid red'}}>
+                  <QuestionText>Q{index+1}: {question}</QuestionText>
+                    <ListGroup>
                       {
                         Object.keys(questions[question].options).map((choice, index) => 
-                            <ListGroupItem style={{border: '1px solid green'}}>{choice} {questions[question]['options'][choice].value}</ListGroupItem>
+                            <ListGroupItem>{choice}&nbsp;&nbsp;&nbsp;{questions[question]['options'][choice].value}</ListGroupItem>
                         )
                       }
                   </ListGroup>
@@ -109,7 +108,7 @@ const Header = (props) => {
 
 const Question = (props) => {
   return(
-    <div className="Question">{props.children}</div>
+    <div>{props.children}</div>
   );
 }
 const QuestionText = (props) => {
@@ -125,11 +124,10 @@ const Choice = (props) => {
 const Graph = (props) => {
   return(
     <div>
-      <div>
-        <button onClick={() => props.active(true)}>Click to show Graph</button>
-        <button onClick={() => props.active(false)}>Click to hide Graph</button>
+      <div className="GraphButtons">
+        <Button onClick={() => props.active(true)}>Show</Button>
       </div>
-      <div>{props.children}</div>
+      <div className="Graph">{props.children}</div>
     </div>
   )
 }

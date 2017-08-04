@@ -18,13 +18,63 @@
     color: white;
 }
 
-.Question {
-    border: 1px solid black;
+.list-group {
+    border: none !important;
+    width: 50%;
+    padding: 10px;
+    left: 210px;
+    position: relative;
 }
 
+.list-group-item {
+    position: relative;
+    display: block;
+    padding: 20px 30px;
+    margin-bottom: 10px;
+    background-color: #fff;
+    border: none !important;
+    text-align: -webkit-left;
+    font-size: 19px;
+    margin-left: 10px;
+}
+
+.Graph {
+    display: flex;
+    justify-content: center;
+}
+
+.GraphButtons {
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+}
+
+.btn-success {
+    color: #fff;
+    background-color: #5cb85c;
+    border-color: #4cae4c;
+    padding: 10px;
+}
+
+.carousel-control.left {
+    background-image: none !important;
+}
+
+.carousel-control.right {
+    background-image: none !important;
+}
+
+
+/* .Question {
+    border: 1px solid black;
+} */
+
 .QuestionText {
-    font-size: x-large;
+    font-size: 27px;
     font-weight: 500;
+    text-align: -webkit-left;
+    padding: 20px;
+    margin-left: 200px;
 }
 
 .App-intro {
