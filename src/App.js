@@ -48,10 +48,10 @@ class App extends Component {
       let activeVotes = [];
       var obj;
       this.setState({isGraphVisible: val});
-      Object.keys(questions[question]).forEach((choice, index) => {
+      Object.keys(questions[question].options).forEach((choice, index) => {
         obj = {
-          name: questions[question][choice].name,
-          votes: questions[question][choice].votes
+          name: questions[question]['options'][choice].value,
+          votes: questions[question]['options'][choice].vote
         }
         console.log(obj);
         activeVotes.push(obj)
@@ -63,10 +63,11 @@ class App extends Component {
     }
   render() {
     const { questions } = this.state
+    let choices;
     return (
       <Container>
         <h2>React Native Bangalore Meetup</h2>
-        <Carousel style={{border: '1px solid blue', width: '80%'}} activeIndex={this.state.index} direction={this.state.direction} onSelect={this.handleSelect.bind(this)}>
+        <Carousel style={{width: '80%'}} activeIndex={this.state.index} direction={this.state.direction} onSelect={this.handleSelect.bind(this)}>
           {
             Object.keys(questions).map((question, index) => (
               <Carousel.Item>
@@ -75,8 +76,8 @@ class App extends Component {
                   <br/>
                     <ListGroup style={{border: '1px solid red'}}>
                       {
-                        Object.keys(questions[question]).map((choice, index) => 
-                            <ListGroupItem style={{border: '1px solid green'}}>{choice} {questions[question][choice].name}</ListGroupItem>
+                        Object.keys(questions[question].options).map((choice, index) => 
+                            <ListGroupItem style={{border: '1px solid green'}}>{choice} {questions[question]['options'][choice].value}</ListGroupItem>
                         )
                       }
                   </ListGroup>
