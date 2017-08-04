@@ -3,7 +3,9 @@ import logo from './logo.svg';
 import './App.css';
 import { BarChart,Bar, CartesianGrid, Tooltip, XAxis, YAxis, Legend} from 'recharts';
 import { Carousel, ListGroup, ListGroupItem } from 'react-bootstrap';
-var firebase = require("firebase/app");
+// var firebase = require("firebase/app");
+import * as firebase from "firebase";
+
 
   var config = {
     apiKey: "AIzaSyAG7CxWol6qxwumpXgacaS3IHiKJLHz4kM",
@@ -20,56 +22,20 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      questions : {
-        'who will die next': {
-          'a': {
-            'name': 'Tyrion',
-            'votes': 3
-          },
-          'b': {
-            'name': 'Arya',
-            'votes': 5
-          },
-          'c': {
-            'name': 'LittleFinger',
-            'votes': 8
-          },
-        },
-        'who will marry next': {
-          'a': {
-            'name': 'Tyrion',
-            'votes': 4
-          },
-          'b': {
-            'name': 'Arya',
-            'votes': 7
-          },
-          'c': {
-            'name': 'LittleFinger',
-            'votes': 50
-          }
-        },
-        'who will kill next': {
-          'a': {
-            'name': 'Tyrion',
-            'votes': 3
-          },
-          'b': {
-            'name': 'Arya',
-            'votes': 9
-          },
-          'c': {
-            'name': 'LittleFinger',
-            'votes': 21
-          },
-        }
-      },
+      questions: {},
       isGraphVisible: false,
       activeVotes : [],
       index: 0,
       direction: null
     }
   }
+    componentDidMount() {
+        firebase.database().ref("Questions/").on("value", snapshot => {
+          const questions = snapshot.val();
+          console.log(questions);
+          this.setState({questions: questions})
+        });
+    }
     handleSelect(selectedIndex, e) {
       this.setState({
         index: selectedIndex,
